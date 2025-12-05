@@ -1,0 +1,30 @@
+name: Generate Gradle Wrapper
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Generate Gradle Wrapper
+        run: |
+          gradle wrapper --gradle-version 8.5
+
+      - name: Upload wrapper
+        uses: actions/upload-artifact@v4
+        with:
+          name: gradle-wrapper
+          path: |
+            gradlew
+            gradlew.bat
+            gradle/wrapper/**
