@@ -6,6 +6,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -16,9 +17,13 @@ jobs:
           distribution: temurin
           java-version: 17
 
+      - name: Set up Gradle 8.5
+        uses: gradle/actions/setup-gradle@v3
+        with:
+          gradle-version: 8.5
+
       - name: Generate Gradle Wrapper
-        run: |
-          gradle wrapper --gradle-version 8.5
+        run: gradle wrapper --gradle-version 8.5
 
       - name: Upload wrapper
         uses: actions/upload-artifact@v4
